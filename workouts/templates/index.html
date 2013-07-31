@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}All Workouts{% endblock %}
+
+{% block content %}
+
+	<style>
+		h3 {
+			color: #fff;
+			text-transform: uppercase;
+			font-size: 4em;
+			margin-top: 10px;
+			margin-left: 10px;
+			display: inline-block;
+		}
+		.green {
+			background-color: #2ecc71;
+		}
+		.green .workout-streak {
+			color: #27ae60;
+		}
+		.blue {
+			background-color: #3498db;
+		}
+		.blue .workout-streak {
+			/* dark blue */
+			color: #2980b9;
+		}
+		.purple {
+			background-color: #9b59b6;
+		}
+		.yellow {
+			background-color: #f1c40f;
+		}
+		.orange {
+			background-color: #e67e22;
+		}
+		.red {
+			background-color: #e74c3c;
+		}
+		.workout {
+			font-family: 'Varela Round';
+			width:  340px;
+			height: 340px;
+			word-wrap: break-word;
+		}
+		.workout-streak {
+			text-transform: uppercase;
+			font-size: 1.3em;
+		}
+
+		h4 {
+		}
+		.record {
+		}
+		.record-date {
+		}
+	</style>
+
+	{% for workout in workouts %}
+		<div class="workout {{ workout.color }}">
+			<h3>{{ workout.name }}</h3>
+			<p class="workout-streak">
+				Current Streak: {{ workout.current_streak }} days
+				<br/>
+				Longest Streak: {{ workout.longest_streak }} days
+			</p>
+			{% for record in workout.record_set.all %}
+				<div class="record">
+					<p class="record-date">{{ record.date }}</p>
+					<h4>{{ record.count }}</h4>
+				</div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+
+{% endblock %}
+
+
+
+
+
