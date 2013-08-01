@@ -9,6 +9,7 @@ from workouts.models import *
 
 def index(request):
 	workouts = Workout.objects.all()
+	# for each workout, needed a sorted list of records
 	context = {
 		'workouts': workouts,
 	}
