@@ -13,12 +13,12 @@ class Record(models.Model):
 	count = models.IntegerField()
 	date = models.DateTimeField(auto_now_add=True)
 
-	def clean_date(self):
+	def cleandate(self):
 		month = int(self.date.strftime('%m'))
 		day = int(self.date.strftime('%d'))
 		return ''.join([str(month),'/',str(day)])
 	
-	clean = property(clean_date)
+	cleandate = property(cleandate)
 
 
 
