@@ -9,11 +9,7 @@ from workouts.models import *
 
 def index(request):
 	workouts = Workout.objects.all()
-	record_dates = []
-	# for workout in workouts:
-	# 	record_dates.append(workout.date)
-
-
+	# for each workout, needed a sorted list of records
 	context = {
 		'workouts': workouts,
 	}
