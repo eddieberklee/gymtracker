@@ -5,16 +5,25 @@
 {% block content %}
 
 	<style>
-		h3 {
+		.workout-title-container {
+			height: 65px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+		}
+		h3.workout-title {
 			color: #fff;
 			text-transform: uppercase;
-			font-size: 4em;
+			font-size: 57px;
+			line-height: 70px;
 			margin-top: 10px;
 			display: inline-block;
+			margin-left: 10px;
+			word-wrap: break-word;
 		}
-		.green {
-			background-color: #2ecc71;
-		}
+		.green .workout-title-container { background-color: #2ecc71; }
+		.green { background-color: #2ecc71; }
 		.green .record { color: #2ecc71; }
 		.green .workout-streak, .green .record-date { /* dark green */ color: #27ae60; }
 		.blue { background-color: #3498db; }
@@ -37,9 +46,9 @@
 			padding-left: 12px;
 			width:		  328px;
 			height: 	  340px;
-			word-wrap: break-word;
 			margin: 0 auto;
 			margin-bottom: 60px;
+			position: relative;
 			/* float: left; */
 		}
 		.workout p.workout-streak {
@@ -49,17 +58,13 @@
 			text-transform: uppercase;
 			font-size: 1.3em;
 		}
-		h4 {
-			font-size: 4em;
-			color: #fff;
-		}
 		.record {
 			width:  100px;
 			height: 100px;
 			line-height: 100px;
 			text-align: center;
 			background-color: #fff;
-			font-size: 4em;
+			font-size: 3em;
 		}
 		.record-date {
 			width: 100px;
@@ -84,7 +89,10 @@
 
 	{% for workout in workouts %}
 		<div class="workout {{ workout.color }}">
-			<h3>{{ workout.name }}</h3>
+			<div class="workout-title-container">
+				<h3 class="workout-title">{{ workout.name }}</h3>
+			</div>
+			<div style="height:80px"></div>
 			<div style="height:30px;"></div>
 			<p class="workout-streak">
 				Current Streak: {{ workout.current_streak }} days
@@ -98,7 +106,7 @@
 			<div class="records-innercontainer">
 			{% for record in workout.record_set.all %}
 				<div class="record-container">
-					<p class="record-date">{{ record.clean }}</p>
+					<p class="record-date">{{ record.cleandate }}</p>
 					<div class="record">
 						<h4>{{ record.count }}</h4>
 					</div>
@@ -114,6 +122,16 @@
 
 	<script>
 		$(function() {
+			var original_workout_title_container_height = $(".workout-title-container").css('height');
+			$(".workout-title-container").hover(function() {
+				$(this).stop().animate({
+					'height': $(this).children("h3.workout-title").css('height'),
+				},200);
+			}, function() {
+				$(this).stop().animate({
+					'height': original_workout_title_container_height,
+				},200);
+			});
 		});
 	</script>
 
